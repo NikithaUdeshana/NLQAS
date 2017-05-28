@@ -67,7 +67,7 @@ def ranking_documents(document_vector, item_list):
 
 
 
-query_sentence = "what is database?"
+query_sentence = "what is a database?"
 
 text_docs = {}
 text_content_list = list()
@@ -82,8 +82,8 @@ formatted_doc_list.insert(0, formatted_query)
 word_matrix = vectorizing(formatted_doc_list)
 sorted_doc_list = ranking_documents(word_matrix, text_docs.keys())
 
-for item in sorted_doc_list:
-    print(item)
+# for item in sorted_doc_list:
+#     print(item)
 
 retrieved_doc_list = list()
 for docs in range(2):
@@ -93,15 +93,18 @@ sentences = list()
 for file in retrieved_doc_list:
     for text in text_docs[file]:
         for para in text.split('\x0c'):
-            sentences.append(para)
-            # sentences.extend(sent_tokenize(para))
+            # sentences.append(para)
+            sentences.extend(sent_tokenize(para))
 
-print(retrieved_doc_list)
+# print(retrieved_doc_list)
+
+# def sent_list(sorted_sent_list):
 
 formatted_sent_list = text_processing(sentences)
 formatted_sent_list.insert(0, formatted_query)
 word_matrix = vectorizing(formatted_sent_list)
 sorted_sent_list = ranking_documents(word_matrix, sentences)
 
-for sent in sorted_sent_list:
-    print(sent)
+
+# for sent in sorted_sent_list:
+#     print(sent)
