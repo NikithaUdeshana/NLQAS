@@ -58,18 +58,16 @@ def vectorizing(doc_list):
 
 def ranking_documents(document_vector, item_list):
     similarity = (cosine_similarity(document_vector[0:1], document_vector))
-    for i in similarity:
-        ranking = i
-    ranking = ranking[1:]
-    ranked_docs = dict(zip(item_list, ranking))
-    sorted_docs = sorted(ranked_docs.items(), key=operator.itemgetter(1))
+    ranked_docs = (zip(item_list, similarity[0, 1:]))
+    ranked_docs = (x for x in ranked_docs if(x[1]>0))
+    sorted_docs = sorted((doc for doc in ranked_docs), key=operator.itemgetter(1))
     sorted_docs.reverse()
     return sorted_docs
 
 
 
 
-query_sentence = "what is 3rd normal form?"
+query_sentence = "what is database?"
 
 text_docs = {}
 text_content_list = list()
@@ -89,8 +87,7 @@ for item in sorted_doc_list:
 
 retrieved_doc_list = list()
 for docs in range(2):
-    ranked_doc_list = sorted_doc_list[docs]
-    retrieved_doc_list.append(ranked_doc_list[0])
+    retrieved_doc_list.append(sorted_doc_list[docs][0])
 
 sentences = list()
 for file in retrieved_doc_list:
