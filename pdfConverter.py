@@ -51,7 +51,7 @@ def json_list_creator(document_list):
 
 
 document_list = ("test 1.pdf", "test 2.pdf", "test 3.pdf", "test 4.pdf", "test 5.pdf", "test 6.pdf", "test 7.pdf", "test 8.pdf", "test 9.pdf", "test 10.pdf", "test 11.pdf", "test 12.pdf", "test 13.pdf", "test 14.pdf")
-json_list = json_list_creator(document_list)
-insert_into_db(json_list)
+# json_list = json_list_creator(document_list)
+# insert_into_db(json_list)
 
-# text_writer(document_list)
+text_writer(document_list)
