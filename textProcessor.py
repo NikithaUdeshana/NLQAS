@@ -64,10 +64,15 @@ def ranking_documents(document_vector, item_list):
     return sorted_docs
 
 
-def pos_tagging(sample_text):
+def pos_tagging(sample_sentence):
     try:
-        words = nltk.word_tokenize(sample_text)
+        words = nltk.word_tokenize(sample_sentence)
         tagged = nltk.pos_tag(words)
         return tagged
     except Exception as e:
         print(str(e))
+
+def chunking(tagged, chunkGram):
+    chunkParser = nltk.RegexpParser(chunkGram)
+    chunked = chunkParser.parse(tagged)
+    return chunked
