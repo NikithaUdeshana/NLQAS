@@ -4,7 +4,7 @@ from dbHandler import retrieve_documents
 from nltk.tokenize import sent_tokenize
 
 
-query_sentence = "what is relational algebra?"
+query_sentence = "what is database?"
 
 text_docs = {}
 text_content_list = list()
@@ -23,7 +23,7 @@ sorted_doc_list = ranking_documents(word_matrix, text_docs.keys())
 #     print(item)
 
 retrieved_doc_list = list()
-for docs in range(2):
+for docs in range(4):
     retrieved_doc_list.append(sorted_doc_list[docs][0])
 
 sentences = list()

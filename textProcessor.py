@@ -3,7 +3,7 @@ import operator
 import codecs
 import nltk
 
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, wordnet
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -58,7 +58,7 @@ def vectorizing(doc_list):
 def ranking_documents(document_vector, item_list):
     similarity = (cosine_similarity(document_vector[0:1], document_vector))
     ranked_docs = (zip(item_list, similarity[0, 1:]))
-    ranked_docs = (x for x in ranked_docs if(x[1]>0))
+    ranked_docs = set(x for x in ranked_docs if(x[1]>0))
     sorted_docs = sorted((doc for doc in ranked_docs), key=operator.itemgetter(1))
     sorted_docs.reverse()
     return sorted_docs
@@ -76,3 +76,13 @@ def chunking(tagged, chunkGram):
     chunkParser = nltk.RegexpParser(chunkGram)
     chunked = chunkParser.parse(tagged)
     return chunked
+
+def synonyms(word):
+    synonyms = list()
+    for syn in wordnet.synsets(word):
+        for l in syn.lemmas():
+            synonyms.append(l.name())
+    return synonyms
+
+# print(synonyms("defines"))
+# print(set(synonyms("defines")))
