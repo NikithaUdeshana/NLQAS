@@ -104,6 +104,10 @@ for pattern in list_of_answer_patterns:
         pattern_lemma_matching(pattern)
         if not answer_list:
             keyword_matching(target)
+            if not answer_list:
+                target_counting(target)
+                if not answer_list:
+                    target_lemma_counting(target)
 
 # answer_pattern_matching(answer_pattern_1)
 # pattern_lemma_matching(answer_pattern_1)
@@ -118,13 +122,13 @@ for pattern in list_of_answer_patterns:
 # print("target lemma count: " + str(target_lemma_counting(target)))
 # print(keyword_matching(target))
 
-answer_list_new = set(tuple(answer) for answer in answer_list)
-sorted_answer_list = sorted((doc for doc in answer_list_new), key=operator.itemgetter(1), reverse = True)
+answer_set = set(tuple(answer) for answer in answer_list)
+sorted_answer_list = sorted((doc for doc in answer_set), key=operator.itemgetter(1), reverse = True)
 
 
-# for sent in sorted_answer_list:
-#     print(sent)
-print(sorted_answer_list[0][0])
+for sent in sorted_answer_list:
+    print(sent)
+# print(sorted_answer_list[0][0])
 print("----------line separator----------")
 # for i in sorted_sent_list:
 #     print(i)

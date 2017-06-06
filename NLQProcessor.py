@@ -4,7 +4,7 @@ from dbHandler import retrieve_documents
 from nltk.tokenize import sent_tokenize
 
 
-query_sentence = "What is DBMS Server"
+query_sentence = "What the class is really about?"
 
 text_docs = {}
 text_content_list = list()
