@@ -5,8 +5,8 @@ import time
 import threading
 
 from dbHandler import retrieve_doc_names, insert_into_db
-from pptConverter import ppt_to_pdf
-from textConverter import json_list_creator
+from ppt_to_pdfConverter import ppt_to_pdf
+from pdf_to_textConverter import json_list_creator
 
 dir = r"" + os.getcwd() + "/test files"
 
