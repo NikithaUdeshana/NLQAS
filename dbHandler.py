@@ -12,3 +12,10 @@ def retrieve_documents():
     collection = db['documents']
     text_document_list = collection.find()
     return text_document_list
+
+def retrieve_doc_names():
+    db_client = MongoClient()
+    db = db_client['text_database']
+    collection = db['documents']
+    doc_names = collection.distinct("doc_name")
+    return doc_names
