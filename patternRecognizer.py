@@ -5,6 +5,7 @@ from NLQProcessor import sorted_sent_list, query_sentence, formatted_query
 from textProcessor import pos_tagging, chunking, stop_words_elimination, stemming
 
 answer_list = list()
+filtered_answers = list()
 sorted_sent_list = [list(sent) for sent in sorted_sent_list]
 
 def text_normalizing(text):
@@ -49,7 +50,9 @@ def keyword_matching(target):
     for word in keywords:
         regexPattern = regexPattern + "(?=.*" + word + "\s)"
     for sent in sorted_sent_list:
-        match = re.search(r'(' + regexPattern + '\s).*', sent[0], re.IGNORECASE)
+        temp = stop_words_elimination(sent[0])
+        temp = " ".join(s for s in temp)
+        match = re.search(r'(' + regexPattern + '\s).*', temp, re.IGNORECASE)
         if match:
             print("Keywords matching successful")
             sent[1] = sent[1] + 0.01
@@ -91,7 +94,7 @@ def target_distance_counting(target):
             # answer_list.append(sent)
 
 pattern1 = r"""Chunk: {<WP|WDT|WP$|WRB>?}"""
-pattern2 = r"""Chunk: {<VB|VBD|VBG|VBN|VBP|VBZ>*}"""
+pattern2 = r"""Chunk: {<VB|VBD|VBG|VBN|VBP|VBZ>.?}"""
 pattern3 = r"""Chunk: {<DT|JJ|JJR|JJS|NN|NNS|NNP|NNPS>*}"""
 pattern4 = r"""Chunk: {<IN|DT|JJ|JJR|JJS|NN|NNS|NNP|NNPS>*}"""
 
@@ -100,6 +103,9 @@ verb = question_segmenting(query_sentence, pattern2)
 target = question_segmenting(query_sentence, pattern4)
 compliment = question_segmenting(query_sentence, pattern4)
 
+phrase1 = list()
+match = re.split(r'(' + verb + '\s)', query_sentence, re.IGNORECASE)
+target = match[2]
 print(target)
 print(verb)
 
@@ -112,7 +118,7 @@ answer_pattern_6 = (target, 0.1)
 
 
 
-list_of_answer_patterns = (answer_pattern_1, answer_pattern_2, answer_pattern_3, answer_pattern_4, answer_pattern_5, answer_pattern_6)
+list_of_answer_patterns = (answer_pattern_5, answer_pattern_6)
 
 # for sent in sorted_sent_list:
 #     sent[1] = 0
@@ -144,6 +150,9 @@ target_distance_counting(target)
 
 answer_set = set(tuple(answer) for answer in answer_list)
 sorted_answer_list = sorted((doc for doc in answer_set), key=operator.itemgetter(1), reverse = True)
+
+for answer in sorted_answer_list:
+    filtered_answers.append(answer[0])
 
 print("----------line separator----------")
 if sorted_answer_list:
