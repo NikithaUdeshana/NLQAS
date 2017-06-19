@@ -20,3 +20,8 @@ def retrieve_doc_names():
     collection = db['documents']
     doc_names = collection.distinct("doc_name")
     return doc_names
+
+def retrieve_image_list():
+    collection = db['images']
+    image_list = collection.find()
+    return image_list

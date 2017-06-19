@@ -41,6 +41,7 @@ def json_doc_creator(doc):
     # doc_name = str(os.path.splitext(doc)[0])
     document = {
         "doc_name": str(doc),
+        "course": "Fundamentals of Databases and Database Design",
         "doc_content": text_stream
     }
     return document

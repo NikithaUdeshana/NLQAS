@@ -1,5 +1,5 @@
 import fitz
-import base64
+from contourDetector import number_of_contours
 
 from opticalCharacterRecognizer import ocr, ocr_word_count
 
@@ -28,18 +28,21 @@ def image_extractor(filename):
                 # binary_encoded_image = base64.b64encode(binary_image)
                 ocr_text = ocr(image_name)
                 word_count = ocr_word_count(ocr_text)
+                contour_count = number_of_contours(image_name)
                 if(word_count>10):
-                    json_image = image_to_json(image_name,i, text, ocr_text, word_count)
+                    json_image = image_to_json(image_name,i, text, ocr_text, word_count, contour_count)
                     json_images_list.append(json_image)
     print("extracted images", image_count)
     return json_images_list
 
-def image_to_json(image_path, page_num, text, ocr, ocr_word_count):
+def image_to_json(image_path, page_num, text, ocr, ocr_word_count, contour_count):
     image = {
         "image_path": image_path,
+        "course": "Fundamentals of Databases and Database Design",
         "page_number": page_num,
         "text": text,
         "ocr": ocr,
-        "ocr_word_count": ocr_word_count
+        "ocr_word_count": ocr_word_count,
+        "number_of_contours": contour_count
     }
     return image
