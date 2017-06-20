@@ -167,4 +167,3 @@ def pattern_recognizer(query_sentence):
     #     print(i)
     return filtered_answers
 
-# print(pattern_recognizer("Who are database administrators?"))

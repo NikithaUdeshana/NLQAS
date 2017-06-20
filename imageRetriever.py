@@ -1,8 +1,6 @@
 from dbHandler import retrieve_image_list
 from patternRecognizer import pattern_recognizer
 from textProcessor import text_processing, query_processing, vectorizing, ranking_documents
-import base64
-import os
 
 
 
